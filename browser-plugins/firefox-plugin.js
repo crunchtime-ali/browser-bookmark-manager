@@ -1,20 +1,30 @@
 import childProc from 'child_process'
 import fs from 'fs'
 import os from 'os'
+import sqlite from 'sqlite3'
 
 import BrowserPlugin from './browser-plugin'
 
 // Determine Chrome config location
 let dir
+console.log(os.type())
 if (os.type() === 'Darwin') {
-  dir = `${os.homedir()}/Library/Application Support/Google/Chrome/Default/Bookmarks`
+  dir = `${os.homedir()}/Library/Application Support/Firefox/Profiles/64r0cbin.default`
 }
+const filename = 'places.sqlite'
 
-class ChromePlugin extends BrowserPlugin {
+class FirefoxPlugin extends BrowserPlugin {
 
-  search (searchTerm) {
+  async search (searchTerm) {
+    console.log("search triggered")
+    console.log("trying to open", `${dir}/${filename}`)
+    var db = await new sqlite.Database(`${dir}/${filename}`, sqlite.OPEN_READONLY, () => {
+      console.log("callback hell",db)
+    })
+    //await sqlite.open(`${dir}/${filename}`)
+    console.log("jo", db)
     // Yes we can use synchronous code here because the file needs to be loaded before something will happen anyways
-    const data = fs.readFileSync(dir, 'utf8')
+    /*const data = fs.readFileSync(dir, 'utf8')
 
     var obj = JSON.parse(data)
     const bookmarkItems = obj.roots.bookmark_bar.children
@@ -29,12 +39,12 @@ class ChromePlugin extends BrowserPlugin {
         })
       }
     })
-    return filtered.slice(1)
+    return filtered.slice(1)*/
   }
 
   open (url) {
-    childProc.exec(`open -a "Google Chrome" "${url}"`)
+    childProc.exec(`open -a "Firefox" "${url}"`)
   }
 }
 
-export default ChromePlugin
+export default FirefoxPlugin

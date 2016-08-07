@@ -4,14 +4,16 @@
   "description": "Search through your Chrome, Firefox, Safari and Opera bookmarks using the command-line",
   "main": "index.js",
   "scripts": {
-    "start": "node_modules/.bin/babel-node .",
+    "start": "node_modules/.bin/babel-node bin/bbs.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Alexander Zigelski",
   "license": "ISC",
   "dependencies": {
     "commander": "^2.9.0",
-    "inquirer": "^1.1.2"
+    "inquirer": "^1.1.2",
+    "sqlite": "^2.2.0",
+    "sqlite3": "^3.1.4"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",

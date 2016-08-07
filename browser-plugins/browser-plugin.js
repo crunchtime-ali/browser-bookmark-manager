@@ -6,9 +6,12 @@ class BrowserPlugin {
       throw new TypeError(`Cannot construct abstract BrowserPlugin directly`)
     }
 
-    if (typeof this.load !== `function`) {
-      throw new TypeError(`Must override method load()`)
-    }
+    // Check whether the derived class contains all abstract methods
+    ['search', 'open'].forEach(requiredMethod => {
+      if (typeof this[requiredMethod] !== 'function') {
+        throw new TypeError(`Must override method ${requiredMethod}()`)
+      }
+    })
   }
 }
 
