@@ -2,18 +2,20 @@
   "name": "browser-bookmark-search",
   "version": "0.1.0",
   "description": "Search through your Chrome, Firefox, Safari and Opera bookmarks using the command-line",
-  "main": "index.js",
+  "bin": {
+    "bbs": "bin/bbs.js"
+  },
+  "preferGlobal": true,
   "scripts": {
     "start": "node_modules/.bin/babel-node bin/bbs.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bundle": "rm -rf dist/ && babel . --out-dir dist --ignore node_modules && cp package.json dist/"
   },
   "author": "Alexander Zigelski",
   "license": "ISC",
   "dependencies": {
     "commander": "^2.9.0",
     "inquirer": "^1.1.2",
-    "sqlite": "^2.2.0",
-    "sqlite3": "^3.1.4"
+    "sql.js": "^0.3.2"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",

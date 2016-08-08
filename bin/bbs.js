@@ -8,8 +8,6 @@ import {version} from '../package.json'
 const currentPlugin = new plugins.ChromePlugin()
 //const currentPlugin = new plugins.FirefoxPlugin()
 
-//ffPlugin.search("jo")
-
 program
   .version(version)
   .usage('[options] <file ..>')
