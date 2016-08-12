@@ -2,6 +2,7 @@
 
 class BrowserPlugin {
   constructor () {
+    // Prevent creating BrowserPlugin
     if (new.target === BrowserPlugin) {
       throw new TypeError(`Cannot construct abstract BrowserPlugin directly`)
     }
@@ -13,6 +14,7 @@ class BrowserPlugin {
       }
     })
   }
+
 }
 
 export default BrowserPlugin

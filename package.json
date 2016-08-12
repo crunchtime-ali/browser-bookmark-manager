@@ -1,13 +1,13 @@
 {
-  "name": "browser-bookmark-search",
+  "name": "browser-bookmark-manager",
   "version": "0.1.0",
   "description": "Search through your Chrome, Firefox, Safari and Opera bookmarks using the command-line",
   "bin": {
-    "bbs": "bin/bbs.js"
+    "bbm": "bin/bbm.js"
   },
   "preferGlobal": true,
   "scripts": {
-    "start": "node_modules/.bin/babel-node bin/bbs.js",
+    "start": "node_modules/.bin/babel-node bin/bbm.js",
     "bundle": "rm -rf dist/ && babel . --out-dir dist --ignore node_modules && cp package.json dist/"
   },
   "author": "Alexander Zigelski",
