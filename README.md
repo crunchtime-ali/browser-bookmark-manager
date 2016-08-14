@@ -1,4 +1,7 @@
 # Browser Bookmark Manager
+![](https://david-dm.org/dj-hedgehog/browser-bookmark-manager.svg)
+[![npm](https://img.shields.io/npm/v/browser-bookmark-manager.svg?maxAge=2592000)]()
+[![npm2](https://img.shields.io/npm/dt/browser-bookmark-manager.svg?maxAge=2592000)]()
 
 A CLI to help you (fuzzily) find and manage your browser bookmarks.
 
