@@ -1,6 +1,6 @@
 {
   "name": "browser-bookmark-manager",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Find and manager your Chrome, Firefox, Safari, Opera and Edge bookmarks using the command-line",
   "keywords": [
     "browser",
