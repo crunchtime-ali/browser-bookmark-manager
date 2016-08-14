@@ -5,10 +5,11 @@ import inquirer from 'inquirer'
 import * as plugins from '../browser-plugins/index'
 import {version} from '../package.json'
 
+// TODO change default back to chrome
 program
   .version(version)
   .usage('[options] <file ..>')
-  .option('-b, --browser [browsername]', 'specified type of browser [chrome]', 'chrome')
+  .option('-b, --browser [browsername]', 'specified type of browser [chrome]', 'firefox')
   .option('-p, --profile [profilename]', 'name of browsers user profile', 'Default')
   .parse(process.argv)
 
@@ -44,9 +45,9 @@ inquirer.prompt([
     message: 'Which bookmark do you want to open?',
     choices: results
   }
-]).then(function (answers) {
-  currentPlugin.open(answers.url)
-  console.log(`Opening ${answers.url}`)
+]).then(function (answer) {
+  currentPlugin.open(answer.url)
+  console.log(`Opening ${answer.url}`)
 })
 
 function errorExit (message) {

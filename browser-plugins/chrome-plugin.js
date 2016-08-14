@@ -17,12 +17,14 @@ class ChromePlugin extends BrowserPlugin {
     // Determine Chrome config location
     if (os.type() === 'Darwin') {
       return `${os.homedir()}/Library/Application Support/Google/Chrome/${profile}/Bookmarks`
+    } else if (os.type() === 'Windows_NT') {
+      // TODO Append the real value
+      return `${os.homedir()}`
     }
   }
 
-  search (searchTerm, profile = 'Default') {
+  getBookmarks (profile) {
     // Yes we can use synchronous code here because the file needs to be loaded before something will happen anyways
-
     let data
     try {
       data = fs.readFileSync(ChromePlugin.getBookmarkLocation(profile), 'utf8')
@@ -42,23 +44,15 @@ class ChromePlugin extends BrowserPlugin {
       res = it.next()
       while (!res.done) {
         if (res.value.type === 'url') {
-          bookmarkItems.push(res.value)
+          bookmarkItems.push({
+            name: res.value.name,
+            value: res.value.url
+          })
         }
         res = it.next()
       }
     }
-
-    // Filter all entries
-    let filtered = []
-    bookmarkItems.forEach(item => {
-      if (item.url.includes(searchTerm) || item.name.includes(searchTerm)) {
-        filtered.push({
-          name: item.name,
-          value: item.url
-        })
-      }
-    })
-    return filtered
+    return bookmarkItems
   }
 
   open (url) {
