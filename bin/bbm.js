@@ -4,12 +4,12 @@ import program from 'commander'
 import inquirer from 'inquirer'
 import * as plugins from '../browser-plugins/index'
 import {version} from '../package.json'
+import chalk from 'chalk'
 
-// TODO change default back to chrome
 program
   .version(version)
   .usage('[options] <file ..>')
-  .option('-b, --browser [browsername]', 'specified type of browser [chrome]', 'firefox')
+  .option('-b, --browser [browsername]', 'specified type of browser [chrome]', 'chrome')
   .option('-p, --profile [profilename]', 'name of browsers user profile', 'Default')
   .parse(process.argv)
 
@@ -18,7 +18,7 @@ const browserClass = plugins.browserNames[program.browser]
 
 // Exit if an invalid browser was chosen
 if (browserClass === undefined) {
-  errorExit(`'${program.browser}' is not a valid browser name. The available browsernames are...`)
+  errorExit(`'${program.browser}' is not a valid browser name. Valid browsernames are "firefox", "chrome"`)
 }
 
 const currentPlugin = new plugins[browserClass]()
@@ -42,7 +42,7 @@ inquirer.prompt([
   {
     type: 'list',
     name: 'url',
-    message: 'Which bookmark do you want to open?',
+    message: `Which bookmark do you want to open?`,
     choices: results
   }
 ]).then(function (answer) {
@@ -51,6 +51,7 @@ inquirer.prompt([
 })
 
 function errorExit (message) {
-  console.log(message)
+  const error = chalk.bold.red
+  console.log(error(message))
   process.exit(0)
 }

@@ -3,6 +3,7 @@
 import childProc from 'child_process'
 import fs from 'fs'
 import os from 'os'
+import path from 'path'
 
 import BrowserPlugin from './browser-plugin'
 
@@ -10,16 +11,15 @@ class ChromePlugin extends BrowserPlugin {
 
   /**
    * Determines the location of the file containing the bookmarks
-   * @param  {[type]} profile [description]
-   * @return {[type]}         [description]
+   * @param  {string} profile name of profiel
+   * @return {string}         path to Bookmarks file
    */
   static getBookmarkLocation (profile) {
     // Determine Chrome config location
     if (os.type() === 'Darwin') {
       return `${os.homedir()}/Library/Application Support/Google/Chrome/${profile}/Bookmarks`
     } else if (os.type() === 'Windows_NT') {
-      // TODO Append the real value
-      return `${os.homedir()}`
+      return path.join(os.homedir(), 'AppData', 'Local', 'Google', 'Chrome', 'User Data', profile, 'Bookmarks')
     }
   }
 
@@ -56,7 +56,11 @@ class ChromePlugin extends BrowserPlugin {
   }
 
   open (url) {
-    childProc.exec(`open -a "Google Chrome" "${url}"`)
+    if (os.type() === 'Darwin') {
+      childProc.exec(`open -a "Google Chrome" "${url}"`)
+    } else if (os.type() === 'Windows_NT') {
+      childProc.exec(`start chrome "${url}"`)
+    }
   }
 }
 

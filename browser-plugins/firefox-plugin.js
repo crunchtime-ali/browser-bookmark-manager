@@ -1,16 +1,19 @@
 import childProc from 'child_process'
 import fs from 'fs'
 import os from 'os'
+import path from 'path'
 
 import sql from 'sql.js'
 import ini from 'ini'
 
 import BrowserPlugin from './browser-plugin'
 
-// Determine Chrome config location
+// Determine Firefox config location
 let dir
 if (os.type() === 'Darwin') {
   dir = `${os.homedir()}/Library/Application Support/Firefox`
+} else if (os.type() === 'Windows_NT') {
+  dir = path.join(os.homedir(), 'AppData', 'Roaming', 'Mozilla', 'Firefox')
 }
 
 const iniName = 'profiles.ini'
@@ -24,7 +27,7 @@ class FirefoxPlugin extends BrowserPlugin {
    * @return {string}                 local path to profile
    */
   getProfileLocation (profileToSearch) {
-    const iniBuffer = fs.readFileSync(`${dir}/${iniName}`, 'utf8')
+    const iniBuffer = fs.readFileSync(path.join(dir, iniName), 'utf8')
     const iniObj = ini.decode(iniBuffer)
 
     for (let profileId in iniObj) {
@@ -32,7 +35,7 @@ class FirefoxPlugin extends BrowserPlugin {
       // Check whether this config item is a profile at all
       if (profile['Name'] !== undefined) {
         if (profileToSearch === 'Default' || profileToSearch.toLowerCase() === profile['Name'].toLowerCase()) {
-          return `${dir}/${profile.Path}`
+          return path.join(dir, profile.Path)
         }
       }
     }
@@ -43,7 +46,7 @@ class FirefoxPlugin extends BrowserPlugin {
   getBookmarks (profile) {
     let profilePath = this.getProfileLocation(profile)
     let bookmarks = []
-    const filebuffer = fs.readFileSync(`${profilePath}/${filename}`)
+    const filebuffer = fs.readFileSync(path.join(profilePath, filename))
     var db = new sql.Database(filebuffer)
     db.each(`SELECT moz_bookmarks.title as name, moz_places.url as value
              FROM moz_bookmarks
@@ -55,7 +58,11 @@ class FirefoxPlugin extends BrowserPlugin {
   }
 
   open (url) {
-    childProc.exec(`open -a "Firefox" "${url}"`)
+    if (os.type() === 'Darwin') {
+      childProc.exec(`open -a "Firefox" "${url}"`)
+    } else if (os.type() === 'Windows_NT') {
+      childProc.exec(`start firefox "${url}"`)
+    }
   }
 }
 

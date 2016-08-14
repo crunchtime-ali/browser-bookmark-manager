@@ -1,7 +1,8 @@
 {
   "name": "browser-bookmark-manager",
   "version": "0.1.0",
-  "description": "Search through your Chrome, Firefox, Safari and Opera bookmarks using the command-line",
+  "description": "Find and manager your Chrome, Firefox, Safari, Opera and Edge bookmarks using the command-line",
+  "keywords": ["browser", "bookmark", "chrome", "firefox", "safari", "opera", "edge", "search", "cli"],
   "bin": {
     "bbm": "bin/bbm.js"
   },
@@ -10,9 +11,11 @@
     "start": "node_modules/.bin/babel-node bin/bbm.js",
     "bundle": "rm -rf dist/ && babel . --out-dir dist --ignore node_modules && cp package.json dist/"
   },
-  "author": "Alexander Zigelski",
-  "license": "ISC",
+  "author": "Alexander Zigelski <hedgehog@ali.dj> (http://ali.dj)",
+  "repository": "dj-hedgehog/browser-bookmark-manager",
+  "license": "MIT",
   "dependencies": {
+    "chalk": "^1.1.3",
     "commander": "^2.9.0",
     "fuse.js": "^2.4.1",
     "ini": "^1.3.4",

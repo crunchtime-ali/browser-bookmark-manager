@@ -1,5 +1,9 @@
 # Browser Bookmark Manager
 
+A CLI to help you (fuzzily) find and manage your browser bookmarks.
+
+![](assets/bbm-search.png)
+
 ## Installation
 
 Via NPM:
@@ -21,7 +25,7 @@ bbm <searchterm>
 ```
 Searches for bookmarks on this browser. Currently only Google Chrome and Firefox are supported
 
-Default: `Chrome`
+Default: `chrome`
 
 
 ```
@@ -30,3 +34,23 @@ Default: `Chrome`
 Search for bookmarks using this profile.
 
 Default: `Default`
+
+## Browser Support
+
+- [x] Google Chrome
+- [x] Firefox
+- [ ] Opera
+- [ ] Safari
+- [ ] Microsoft Edge
+
+## OS Support
+
+- [x] OS X
+- [x] Windows
+- [ ] Linux
+
+## To-Do
+
+- [ ] Linux-Support
+- [ ] Delete bookmarks
+- [ ] * Any ideas ?*
