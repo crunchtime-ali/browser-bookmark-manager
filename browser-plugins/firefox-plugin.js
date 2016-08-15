@@ -14,6 +14,8 @@ if (os.type() === 'Darwin') {
   dir = `${os.homedir()}/Library/Application Support/Firefox`
 } else if (os.type() === 'Windows_NT') {
   dir = path.join(os.homedir(), 'AppData', 'Roaming', 'Mozilla', 'Firefox')
+} else if (os.type() === 'Linux') {
+  dir = path.join(os.homedir(), '.mozilla', 'firefox')
 }
 
 const iniName = 'profiles.ini'
@@ -62,6 +64,8 @@ class FirefoxPlugin extends BrowserPlugin {
       childProc.exec(`open -a "Firefox" "${url}"`)
     } else if (os.type() === 'Windows_NT') {
       childProc.exec(`start firefox "${url}"`)
+    } else if (os.type() === 'Linux') {
+      childProc.exec(`firefox "${url}"`)
     }
   }
 }

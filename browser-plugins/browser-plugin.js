@@ -24,7 +24,14 @@ class BrowserPlugin {
   search (searchTerm, profile = 'Default') {
     // Gather bookmarks
     const bookmarks = this.getBookmarks(profile)
+
     this.resultsCount = bookmarks.length
+
+    // Just output all bookmarks
+    if (searchTerm === undefined) {
+      console.log(chalk.green(`Showing all ${this.resultsCount} bookmarks`))
+      return bookmarks
+    }
 
     let options = {
       // include: ['score'],
@@ -44,7 +51,7 @@ class BrowserPlugin {
 
     if (filteredBookmarks.length === 0) {
       console.log(chalk.green(`Searched through ${this.resultsCount} bookmarks`))
-      throw new Error(`None matched ""${searchTerm}"`)
+      throw new Error(`None matched "${searchTerm}"`)
     }
 
     console.log(chalk.green(`Found ${this.matchesCount} matches in ${this.resultsCount} bookmarks`))

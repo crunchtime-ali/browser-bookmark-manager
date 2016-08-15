@@ -8,7 +8,7 @@ import chalk from 'chalk'
 
 program
   .version(version)
-  .usage('[options] <file ..>')
+  .usage('[options] <searchterm ..>')
   .option('-b, --browser [browsername]', 'specified type of browser [chrome]', 'chrome')
   .option('-p, --profile [profilename]', 'name of browsers user profile', 'Default')
   .parse(process.argv)
@@ -23,12 +23,6 @@ if (browserClass === undefined) {
 
 const currentPlugin = new plugins[browserClass]()
 const searchTerms = program.args
-
-// Make sure that only one search term is specified
-if (searchTerms.length !== 1) {
-  program.outputHelp()
-  process.exit(0)
-}
 
 // Perform the search for the actual bookmarks
 let results

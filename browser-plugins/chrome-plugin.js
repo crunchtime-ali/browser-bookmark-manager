@@ -20,6 +20,8 @@ class ChromePlugin extends BrowserPlugin {
       return `${os.homedir()}/Library/Application Support/Google/Chrome/${profile}/Bookmarks`
     } else if (os.type() === 'Windows_NT') {
       return path.join(os.homedir(), 'AppData', 'Local', 'Google', 'Chrome', 'User Data', profile, 'Bookmarks')
+    } else if (os.type() === 'Linux') {
+      return path.join(os.homedir(), '.config', 'google-chrome', profile, 'Bookmarks')
     }
   }
 
@@ -60,6 +62,8 @@ class ChromePlugin extends BrowserPlugin {
       childProc.exec(`open -a "Google Chrome" "${url}"`)
     } else if (os.type() === 'Windows_NT') {
       childProc.exec(`start chrome "${url}"`)
+    } else if (os.type() === 'Linux') {
+      childProc.exec(`chrome "${url}"`)
     }
   }
 }
