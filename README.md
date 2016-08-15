@@ -21,6 +21,8 @@ npm install -g browser-bookmark-manager
 bbm <searchterm>
 ```
 
+If no `<searchterm>` is specified you may browse through all boomarks.
+
 ### Options
 
 
@@ -39,6 +41,11 @@ Search for bookmarks using this profile.
 
 Default: `Default`
 
+```
+-h, --help
+```
+Shows the help screen
+
 ## Browser Support
 
 - [x] Google Chrome
@@ -51,10 +58,9 @@ Default: `Default`
 
 - [x] OS X
 - [x] Windows
-- [ ] Linux
+- [x] Linux
 
 ## To-Do
 
-- [ ] Linux-Support
 - [ ] Delete bookmarks
-- [ ] * Any ideas ?*
+- [ ] *Any ideas ?*
